@@ -5,7 +5,12 @@ import mongoose from 'mongoose';
 import routes from './routes/scans.js';
 
 const app = express();
-app.use(cors({ origin: process.env.CLIENT_URL || 'http://localhost:5173' }));
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "https://privacyguard-1.onrender.com"
+  ]
+}));
 app.use(express.json({ limit: '32kb' }));
 app.get('/api/health', (_req, res) => res.json({ status: 'ok', historyEnabled: mongoose.connection.readyState === 1 }));
 app.use('/api/scans', routes);
